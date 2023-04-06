@@ -1,0 +1,292 @@
+[gd_scene load_steps=8 format=3 uid="uid://grkel7q7x8uq"]
+
+[ext_resource type="PackedScene" uid="uid://bg77epbe42mkk" path="res://Dice.tscn" id="1_ohwji"]
+[ext_resource type="Script" path="res://Gameplay.gd" id="1_xpgj0"]
+[ext_resource type="Script" path="res://DiceLogic.gd" id="2_qbfne"]
+[ext_resource type="Script" path="res://RollButton.gd" id="2_s5hk6"]
+[ext_resource type="Script" path="res://PlayButton.gd" id="3_rmtgh"]
+[ext_resource type="Script" path="res://ScoreBox.gd" id="6_nps7a"]
+[ext_resource type="Script" path="res://BonusScoreBox.gd" id="7_30d84"]
+
+[node name="Gameplay" type="Node2D"]
+script = ExtResource("1_xpgj0")
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera_group"]]
+position = Vector2(361, 639)
+
+[node name="BottomButtons" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 39.0
+offset_top = 1144.0
+offset_right = 676.0
+offset_bottom = 1234.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="RollButton" type="Button" parent="BottomButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Roll"
+script = ExtResource("2_s5hk6")
+
+[node name="PlayButton" type="Button" parent="BottomButtons"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play"
+script = ExtResource("3_rmtgh")
+
+[node name="Dice" parent="." groups=["Dice"] instance=ExtResource("1_ohwji")]
+position = Vector2(-3, 15)
+script = ExtResource("2_qbfne")
+
+[node name="Dice2" parent="." groups=["Dice"] instance=ExtResource("1_ohwji")]
+position = Vector2(129, 15)
+script = ExtResource("2_qbfne")
+
+[node name="Dice3" parent="." groups=["Dice"] instance=ExtResource("1_ohwji")]
+position = Vector2(260, 15)
+script = ExtResource("2_qbfne")
+
+[node name="Dice4" parent="." groups=["Dice"] instance=ExtResource("1_ohwji")]
+position = Vector2(392, 15)
+script = ExtResource("2_qbfne")
+
+[node name="Dice5" parent="." groups=["Dice"] instance=ExtResource("1_ohwji")]
+position = Vector2(528, 15)
+script = ExtResource("2_qbfne")
+
+[node name="TopLabels" type="HBoxContainer" parent="."]
+offset_left = 11.0
+offset_top = 12.0
+offset_right = 712.0
+offset_bottom = 88.0
+alignment = 1
+
+[node name="Score" type="Label" parent="TopLabels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rolls" type="Label" parent="TopLabels"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Turn" type="Label" parent="TopLabels"]
+layout_mode = 2
+text = "0"
+
+[node name="MinorContainer" type="VBoxContainer" parent="."]
+offset_left = 19.0
+offset_top = 87.0
+offset_right = 342.0
+offset_bottom = 967.0
+
+[node name="Label" type="Label" parent="MinorContainer"]
+layout_mode = 2
+text = "Minor"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer"]
+layout_mode = 2
+text = "Ones"
+
+[node name="OnesScoreBox" type="Control" parent="MinorContainer/HBoxContainer" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Twos"
+
+[node name="TwosScoreBox" type="Control" parent="MinorContainer/HBoxContainer2" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Threes"
+
+[node name="ThreeScoreBox" type="Control" parent="MinorContainer/HBoxContainer3" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Fours"
+
+[node name="FourScoreBox" type="Control" parent="MinorContainer/HBoxContainer4" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Fives"
+
+[node name="FiveScoreBox" type="Control" parent="MinorContainer/HBoxContainer5" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Sixs"
+
+[node name="SixScoreBox" type="Control" parent="MinorContainer/HBoxContainer6" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MinorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MinorContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Bonus"
+
+[node name="BonusScoreBox" type="Control" parent="MinorContainer/HBoxContainer7" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("7_30d84")
+
+[node name="MajorContainer" type="VBoxContainer" parent="."]
+offset_left = 383.0
+offset_top = 81.0
+offset_right = 703.0
+offset_bottom = 961.0
+
+[node name="Label" type="Label" parent="MajorContainer"]
+layout_mode = 2
+text = "Major"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer"]
+layout_mode = 2
+text = "3 of a kind"
+
+[node name="ThreeOfAKindScoreBox" type="Control" parent="MajorContainer/HBoxContainer" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Four of a kind"
+
+[node name="FourOfAKindScoreBox" type="Control" parent="MajorContainer/HBoxContainer2" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Full House"
+
+[node name="FullHouseScoreBox" type="Control" parent="MajorContainer/HBoxContainer3" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Small Straight"
+
+[node name="SmallStraightScoreBox" type="Control" parent="MajorContainer/HBoxContainer4" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Large Straight"
+
+[node name="LargeStraightScoreBox" type="Control" parent="MajorContainer/HBoxContainer5" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Chance Score"
+
+[node name="ChanceScoreBox" type="Control" parent="MajorContainer/HBoxContainer6" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("6_nps7a")
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MajorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="MajorContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Yahtzee"
+
+[node name="YahtzeeScoreBox" type="Control" parent="MajorContainer/HBoxContainer7" groups=["ScoreBox"]]
+layout_mode = 2
+script = ExtResource("7_30d84")
+
+[node name="NoSelectionWarningDialog" type="AcceptDialog" parent="."]
+size = Vector2i(452, 100)
+dialog_text = "No ScoreBox is selected, please click one, then click Play."
+
+[connection signal="no_rolls_remaining" from="." to="BottomButtons/RollButton" method="_on_no_rolls_remaining"]
+[connection signal="no_rolls_remaining" from="." to="BottomButtons/PlayButton" method="_on_no_rolls_remaining"]
+[connection signal="turn_completed" from="." to="BottomButtons/RollButton" method="_on_gameplay_turn_completed"]
+[connection signal="turn_completed" from="." to="BottomButtons/PlayButton" method="_on_turn_completed"]
+[connection signal="pressed" from="BottomButtons/RollButton" to="BottomButtons/RollButton" method="_on_pressed"]
+[connection signal="roll_dice" from="BottomButtons/RollButton" to="Dice" method="on_roll_dice"]
+[connection signal="roll_dice" from="BottomButtons/RollButton" to="Dice2" method="on_roll_dice"]
+[connection signal="roll_dice" from="BottomButtons/RollButton" to="Dice3" method="on_roll_dice"]
+[connection signal="roll_dice" from="BottomButtons/RollButton" to="Dice4" method="on_roll_dice"]
+[connection signal="roll_dice" from="BottomButtons/RollButton" to="Dice5" method="on_roll_dice"]
+[connection signal="pressed" from="BottomButtons/PlayButton" to="BottomButtons/PlayButton" method="_on_pressed"]

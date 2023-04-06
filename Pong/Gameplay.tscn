@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://pfmgrp5xpktu"]
+
+[ext_resource type="Script" path="res://Gameplay.gd" id="1_7l576"]
+[ext_resource type="PackedScene" uid="uid://dqb4gwlugifsh" path="res://Paddle.tscn" id="1_em3y3"]
+[ext_resource type="PackedScene" uid="uid://d336t7yxnuo8f" path="res://Ball.tscn" id="2_6g438"]
+[ext_resource type="PackedScene" uid="uid://dakwq5pt7rirf" path="res://Wall.tscn" id="3_p3rqa"]
+[ext_resource type="Script" path="res://PlayerPaddle.gd" id="3_sybjg"]
+[ext_resource type="Script" path="res://EnemyPaddle.gd" id="4_y4o72"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc3la"]
+size = Vector2(200, 800)
+
+[node name="Gameplay" type="Node2D"]
+script = ExtResource("1_7l576")
+
+[node name="Control" type="Control" parent="."]
+top_level = true
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerScore" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 51.0
+offset_right = 256.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+
+[node name="EnemyScore" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 845.0
+offset_top = 38.0
+offset_right = 905.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+
+[node name="PlayerPaddle" parent="." instance=ExtResource("1_em3y3")]
+position = Vector2(104, 309)
+collision_layer = 2
+collision_mask = 9
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("3_sybjg")
+
+[node name="EnemyPaddle" parent="." instance=ExtResource("1_em3y3")]
+position = Vector2(990, 294)
+collision_layer = 2
+collision_mask = 9
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("4_y4o72")
+
+[node name="Ball" parent="." instance=ExtResource("2_6g438")]
+position = Vector2(644, 346)
+collision_mask = 15
+
+[node name="TopWall" parent="." groups=["StaticBodies"] instance=ExtResource("3_p3rqa")]
+position = Vector2(638, -10)
+collision_layer = 8
+collision_mask = 3
+
+[node name="BottomWall" parent="." groups=["StaticBodies"] instance=ExtResource("3_p3rqa")]
+position = Vector2(640, 730)
+collision_layer = 8
+collision_mask = 3
+
+[node name="LeftGoal" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftGoal"]
+position = Vector2(-100, 363)
+shape = SubResource("RectangleShape2D_sc3la")
+
+[node name="RightGoal" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightGoal"]
+position = Vector2(1380, 358)
+shape = SubResource("RectangleShape2D_sc3la")
+
+[connection signal="body_entered" from="LeftGoal" to="." method="_left_goal_area_entered"]
+[connection signal="body_entered" from="RightGoal" to="." method="_right_goal_area_entered"]

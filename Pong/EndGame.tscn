@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnj76hjvn5kab"]
+
+[ext_resource type="Script" path="res://EndGame.gd" id="1_nw3pg"]
+
+[node name="EndGame" type="Node2D"]
+script = ExtResource("1_nw3pg")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VictoryText" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "You Win!"
+
+[node name="PlayAgainButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Play Again?"
+
+[connection signal="pressed" from="Control/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

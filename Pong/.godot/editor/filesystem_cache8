@@ -1,0 +1,16 @@
+2a60927148abd1d33b818b535e306557
+::res://::1680626487
+Ball.gd::GDScript::-1::1680625843::0::1::::<>CharacterBody2D<>::
+Ball.svg::CompressedTexture2D::4495907463235051542::1680493428::1680493430::1::::<><>::
+Ball.tscn::PackedScene::9184270125803538159::1680622393::0::1::::<><>::res://Ball.gd<>uid://b5b366s1uavni
+EndGame.gd::GDScript::-1::1680411970::0::1::::<>Node2D<>::
+EndGame.tscn::PackedScene::5705874420386137417::1680413273::0::1::::<><>::res://EndGame.gd
+EnemyPaddle.gd::GDScript::-1::1680623989::0::1::::<>CharacterBody2D<>::
+Gameplay.gd::GDScript::-1::1680623088::0::1::::<>Node2D<>::
+Gameplay.tscn::PackedScene::1063894779480830506::1680626099::0::1::::<><>::res://Gameplay.gd<>uid://dqb4gwlugifsh<>uid://d336t7yxnuo8f<>uid://dakwq5pt7rirf<>res://PlayerPaddle.gd<>res://EnemyPaddle.gd
+icon.svg::CompressedTexture2D::4629908797481808419::1680410466::1680410475::1::::<><>::
+MainMenu.gd::GDScript::-1::1680411723::0::1::::<>Node2D<>::
+MainMenu.tscn::PackedScene::1252397281033027371::1680533457::0::1::::<><>::res://MainMenu.gd
+Paddle.tscn::PackedScene::8286120608019136991::1680622393::0::1::::<><>::
+PlayerPaddle.gd::GDScript::-1::1680626359::0::1::::<>CharacterBody2D<>::
+Wall.tscn::PackedScene::7181271774942525839::1680566341::0::1::::<><>::
