@@ -52,10 +52,9 @@ func calculate_score_for_turn():
 	# Check if the player has a Yahtzee
 	var yahtzee_score = calculate_yahtzee_score(dice_results)
 	if yahtzee_score > 0:
-		var yahtzee_score_box = get_node("MajorContainer/HBoxContainer7/YahtzeeScoreBox")
+		var yahtzee_score_box = get_node("MajorContainer/YahtzeeScoreBox")
+		yahtzee_score_box.new_yahtzee_score()
 		new_score = yahtzee_score
-		var old_yahtzee_score = int(yahtzee_score_box.text)
-		yahtzee_score_box.set_score(old_yahtzee_score + yahtzee_score)
 	else:
 		for scorebox in scoreboxes:
 			if scorebox.is_selected():
@@ -129,7 +128,7 @@ func calculate_small_straight_score(dice_results: Array) -> int:
 	var straights = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]]
 	for straight in straights:
 		if is_subset(straight, unique_dice):
-			return calculate_sum(dice_results)
+			return 30
 	print("Warning: No Small Straight found.")
 	return 0
 
@@ -146,7 +145,7 @@ func calculate_large_straight_score(dice_results: Array) -> int:
 	var unique_dice = unique_sorted(dice_results)
 	var straight = [1, 2, 3, 4, 5, 6]
 	if unique_dice == straight:
-		return calculate_sum(dice_results)
+		return 40
 	print("Warning: No Large Straight found.")
 	return 0
 

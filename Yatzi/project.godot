@@ -18,8 +18,12 @@ config/icon="res://icon.svg"
 [display]
 
 window/size/viewport_width=720
-window/size/viewport_height=1280
+window/size/viewport_height=1050
 
 [dotnet]
 
 project/assembly_name="Yatzi"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.329412, 0.415686, 0.462745, 1)

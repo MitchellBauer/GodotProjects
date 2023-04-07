@@ -4,15 +4,14 @@ extends Button
 
 func _ready():
 	self.disabled = true
+	set_focus_mode(FOCUS_NONE)
 
 func _on_no_rolls_remaining():
 	self.disabled = false
-	self.visible = true
 
 func _on_turn_completed(score):
 	# Update the score sheet UI with the score for the completed turn
 	self.disabled = true
-	self.visible = false
 
 
 func _on_pressed():
@@ -26,8 +25,8 @@ func _on_pressed():
 			any_scorebox_selected = true
 			break
 		elif scorebox.get_name() == "YahtzeeScoreBox" and has_yahtzee:
-			any_scorebox_selected = true
-			scorebox.select()  # Make the Yahtzee scorebox selectable
+			var score = gameplay.calculate_score_for_turn()
+			gameplay.end_turn(score)
 			break
 	
 	# Continue only if a ScoreBox is selected or there's a Yahtzee in hand

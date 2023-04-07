@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc7lmqhekcdh2"]
+
+[ext_resource type="Script" path="res://ScoreBox.gd" id="1_bulsi"]
+
+[sub_resource type="Theme" id="Theme_l32n7"]
+
+[node name="OnesScoreBox" type="Control" groups=["ScoreBox"]]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_l32n7")
+script = ExtResource("1_bulsi")

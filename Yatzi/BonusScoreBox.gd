@@ -3,7 +3,7 @@ extends Control
 # Score box properties
 var border_color := Color("FF8C00")
 var selected_border_color := Color("000000")
-var fill_color := Color("FFFFFF")
+var fill_color := Color("#F7FFF7")
 var border_width := 2
 
 # Label properties
@@ -13,9 +13,11 @@ var font := FontFile.new()
 var selected := false
 var written_score := false
 
+var total_yahtzee_score := 0
+
 func _ready():
 	# Set the size of the control
-	custom_minimum_size = Vector2(64, 64)
+	custom_minimum_size = Vector2(75, 75)
 	# Allow the control to receive mouse events
 	mouse_filter = MOUSE_FILTER_STOP
 
@@ -35,6 +37,18 @@ func bonus_set_score(score: int):
 	selected = false
 	written_score = true
 	queue_redraw()
+	
+func new_yahtzee_score():
+	if get_name() == "YahtzeeScoreBox":
+		var yahtzee_score = 50
+		if written_score:
+			# If a score has already been written to the YahtzeeScoreBox,
+			# add the additional 50 points to the previous score
+			yahtzee_score += total_yahtzee_score
+		total_yahtzee_score += yahtzee_score
+		label_text = str(yahtzee_score)
+		written_score = true
+		queue_redraw()
 
 func is_written_score() -> bool:
 	return written_score
