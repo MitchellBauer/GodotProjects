@@ -14,13 +14,13 @@ var sprite_textures = [
 
 var held: bool = false
 
-signal disable_roll_button
-
+signal animation_finished
+@onready var gameplay = get_node("/root/Gameplay")
 
 func _ready():
 	connect("input_event", Callable(self, "_on_input_event"))
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		held = !held
 		_update_visuals()
@@ -37,7 +37,7 @@ func on_roll_dice():
 		$Sprite2D.visible = false
 		roll_dice_animation()
 		get_node("../AudioStreamPlayer2D").play()
-		emit_signal("disable_roll_button", true)  # Pass true to disable the button
+		# emit_signal("disable_roll_button", true)  # Pass true to disable the button
 		$wait_for_roll.wait_time = 1.5  # set the timer wait time to the desired duration
 		$wait_for_roll.start()
 
@@ -47,10 +47,12 @@ func roll_dice_animation():
 
 func _on_animation_finished():
 	$AnimatedSprite2D.visible = false
-	emit_signal("disable_roll_button", false)  # Pass false to enable the button
-	display_result(result)
+	#if GameData.is_there_rolls_remaining():
+	#	emit_signal("disable_roll_button", false)  # Pass false to enable the button
+	emit_signal("animation_finished")
+	display_result()
 
-func display_result(result: int):
+func display_result():
 	var sprite_texture = sprite_textures[result - 1]
 	$Sprite2D.texture = sprite_texture
 	$Sprite2D.visible = true

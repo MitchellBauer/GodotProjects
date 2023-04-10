@@ -7,6 +7,7 @@ signal roll_dice
 func _ready():
 	gameplay.decrease_roll_counter()
 	emit_signal("roll_dice")
+	# gameplay.connect("no_rolls_remaining", Callable(self, "_on_no_rolls_remaining"))
 
 func _on_pressed():
 	gameplay.decrease_roll_counter()
@@ -14,12 +15,17 @@ func _on_pressed():
 	set_focus_mode(Control.FOCUS_NONE)
 
 func _on_no_rolls_remaining():
-	self.disabled = true
+	disable_roll_button()
 
-func _on_gameplay_turn_completed(score):
-	self.disabled = false
+func _on_gameplay_turn_completed():
+	enable_roll_button()
 	emit_signal("roll_dice")
 
-
-func _on_dice_disable_roll_button(par_disabled: bool):
-	self.disabled = par_disabled # Replace with function body.
+func disable_roll_button():
+	print_stack()
+	self.disabled = true
+	
+func enable_roll_button():
+	print_stack()
+	if GameData.rolls_remaining > 0:
+		self.disabled = false

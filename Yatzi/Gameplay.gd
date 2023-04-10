@@ -1,35 +1,48 @@
 extends Node2D
 
-var rolls_remaining = 3
-var turn = 1
-var max_turns = 13
-var current_score = 0
+var current_score : int = GameData.get_score()
 var One_Time_Bonus:= false
 var number_scores_flag_for_bonus = 0
 
 signal no_rolls_remaining
-signal turn_completed(score)
+signal turn_completed()
 
 func reset_roll_counter():
-	rolls_remaining = 2
-	$TopLabels/Rolls.text = str(rolls_remaining)
+	GameData.rolls_remaining = 2
+	$TopLabels/Rolls.text = str(GameData.rolls_remaining)
 
 func decrease_roll_counter():
-	rolls_remaining -= 1
-	$TopLabels/Rolls.text = str(rolls_remaining)
-	if rolls_remaining <= 0:
+	GameData.rolls_remaining -= 1
+	$TopLabels/Rolls.text = str(GameData.rolls_remaining)
+	if GameData.is_there_rolls_remaining():
 		emit_signal("no_rolls_remaining")
 
-func end_turn(score):
-	turn += 1
-	$TopLabels/Turn.text = str(turn)
+func end_turn():
+	GameData.turn += 1
+	$TopLabels/Turn.text = str(GameData.turn)
+	current_score = calculate_score_for_turn()
+	GameData.set_score(current_score)  # Update the score in the GameData singleton
 	$TopLabels/Score.text =  str(current_score)
 	reset_roll_counter()
-	if turn > max_turns:
-		pass #TODO End the game
+	if GameData.turn > GameData.max_turns:
+		change_scene("res://EndGameScene.tscn")
 	else:
 		reset_dice_held_state()
-		emit_signal("turn_completed", score)
+		emit_signal("turn_completed")
+		
+		
+func change_scene(new_scene_path):
+	var new_scene = load(new_scene_path).instance()
+	get_tree().root.add_child(new_scene)
+	get_tree().root.remove_child(get_tree().get_current_scene())
+	get_tree().set_current_scene(new_scene)
+	
+	if new_scene_path == "res://GameplayScene.tscn":
+		new_scene.connect("play_again", Callable(self, "reset_game_and_start_again"))
+		
+func reset_game_and_start_again():
+	reset_game()
+	change_scene("res://GameplayScene.tscn")
 		
 func calculate_score_for_turn():
 	var scoreboxes = get_tree().get_nodes_in_group("ScoreBox")
@@ -50,11 +63,12 @@ func calculate_score_for_turn():
 		dice_results.append(die.result)
 		
 	# Check if the player has a Yahtzee
-	var yahtzee_score = calculate_yahtzee_score(dice_results)
-	if yahtzee_score > 0:
-		var yahtzee_score_box = get_node("MajorContainer/YahtzeeScoreBox")
-		yahtzee_score_box.new_yahtzee_score()
-		new_score = yahtzee_score
+	var yahtzee_score_box = get_node("MajorContainer/YahtzeeScoreBox")
+	if yahtzee_score_box.is_selected():
+		var yahtzee_score = calculate_yahtzee_score(dice_results)
+		if yahtzee_score > 0:
+			yahtzee_score_box.new_yahtzee_score()
+			new_score = yahtzee_score
 	else:
 		for scorebox in scoreboxes:
 			if scorebox.is_selected():
@@ -195,7 +209,7 @@ func check_number_score_boxes_bonus():
 		"TwosScoreBox",
 		"ThreeScoreBox",
 		"FourScoreBox",
-		"FiceScoreBox",
+		"FiveScoreBox",
 		"SixScoreBox"
 	]
 	var total_score = 0
@@ -227,15 +241,30 @@ func check_for_yahtzee():
 			return true
 	
 	return false
+	
+func reset_game():
+	GameData.rolls_remaining = 3
+	GameData.turn = 1
+	GameData.max_turns = 13
+	current_score = 0
+	GameData.set_score(current_score)
+	$TopLabels/Score.text = str(current_score)
+	$TopLabels/Turn.text = str(GameData.turn)
+	$TopLabels/Rolls.text = str(GameData.rolls_remaining)
+	One_Time_Bonus = false
+	number_scores_flag_for_bonus = 0
+	reset_dice_held_state()
 
+	# Reset all the score boxes
+	var scoreboxes = get_tree().get_nodes_in_group("ScoreBox")
+	for scorebox in scoreboxes:
+		scorebox.reset_score()
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func get_dice_results():
+	var dice = get_tree().get_nodes_in_group("Dice")
+	var dice_results = []
+	for die in dice:
+		dice_results.append(die.result)
+	return dice_results
+	
 

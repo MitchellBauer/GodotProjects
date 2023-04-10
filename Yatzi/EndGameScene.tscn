@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6pe2lj11uetv"]
+
+[ext_resource type="Script" path="res://EndGameScene.gd" id="1_c32m2"]
+
+[node name="EndGameScene" type="Node2D"]
+script = ExtResource("1_c32m2")
+
+[node name="GameOverLabel" type="Label" parent="."]
+offset_left = 230.0
+offset_top = 134.0
+offset_right = 483.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 108.0
+offset_top = 224.0
+offset_right = 614.0
+offset_bottom = 302.0
+theme_override_font_sizes/font_size = 20
+text = "Your score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 142.0
+offset_top = 243.0
+offset_right = 580.0
+offset_bottom = 451.0
+theme_override_colors/font_color = Color(0.796078, 0.870588, 0.239216, 1)
+theme_override_font_sizes/font_size = 150
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 297.0
+offset_top = 914.0
+offset_right = 415.0
+offset_bottom = 958.0
+text = "Play Again?"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 217.0
+offset_top = 465.0
+offset_right = 502.0
+offset_bottom = 878.0
+alignment = 1
+
+[node name="HighScoreLabel0" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel1" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel6" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel7" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel8" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HighScoreLabel9" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
